@@ -43,21 +43,22 @@ public class Game extends Application {
     }
 
     public void drawGrid(int[][] grid, Pane root) {
-        root.getChildren().removeAll();
-        for (int i = 0; i < columns; i++) {
-            for (int j = 0; j < rows; j++) {
-                int x = i*resolution;
-                int y = j*resolution;
-                Rectangle rectangle = new Rectangle(x, y, resolution, resolution);
-                if (grid[i][j] == 1) {
-                    rectangle.setFill(Color.BLACK);
-                } else {
-                    rectangle.setFill(Color.WHITE);
+            root.getChildren().removeAll();
+            for (int i = 0; i < columns; i++) {
+                for (int j = 0; j < rows; j++) {
+                    int x = i*resolution;
+                    int y = j*resolution;
+                    Rectangle rectangle = new Rectangle(x, y, resolution, resolution);
+                    if (grid[i][j] == 1) {
+                        rectangle.setFill(Color.BLACK);
+                    } else {
+                        rectangle.setFill(Color.WHITE);
+                    }
+                    root.getChildren().add(rectangle);
                 }
-                root.getChildren().add(rectangle);
             }
+
         }
-    }
 
 
 
