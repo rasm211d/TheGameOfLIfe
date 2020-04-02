@@ -1,31 +1,19 @@
 package sample;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class GameCell {
-    public int columns;
-    public int rows;
-    public int resolution = 20;
-    public Cell[][] grid = new Cell[20][20];
-    public Game game;
+    public int columns = 40;
+    public int rows = 40;
+    public Cell[][] grid;
     public int iteration;
 
     public GameCell() {
-        make2dArray(columns, rows);
-    }
-
-    public static Game initialize() {
-        Game game = new Game();
-        return game;
-    }
-
-    public void make2dArray(int columns, int rows) {
-        for (int i = 0; i < columns; i++) {
-            for (int j = 0; j < rows; j++) {
+        grid = new Cell[columns][rows];
+        iteration = 0;
+        for (int i = 0; i < this.columns; i++) {
+            for (int j = 0; j < this.rows; j++) {
                 int k = (int)Math.round(Math.random());
                 Cell cell = new Cell();
-                cell.setName("X: " + columns + " Y: " + rows);
+                cell.setName("X: " + this.columns + " Y: " + this.rows);
                 System.out.println(cell.getName());
                 if (k == 1) {
                     cell.setAlive(true);
@@ -34,25 +22,31 @@ public class GameCell {
                 }
                 grid[i][j] = cell;
             }
-
         }
     }
-    //TODO fiks update metode. listen skal tjekke alle hjørner. det gør den ikke...
 
-    public Game update() {
+
+    public void update() {
         iteration++;
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid.length; j++) {
-                 //List neighborsList = new ArrayList();
-                //int neighbors = countNeighbors(grid, i, j);
-                //neighborsList.add(neighbors);
+                if (i == 0 ||  i == columns -1 || j == 0 || j == rows -1) {
+                    grid[i][j].setLivingNeighbours(grid[i][j].getLivingNeighbours());
+                } else {
+                    grid[i][j].setLivingNeighbours(countNeighbors(grid, i, j));
+                }
 
             }
         }
-        return game;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid.length; j++) {
+                grid[i][j].update();
+            }
+        }
+
     }
 
-    private int countNeighbors(Cell[][] grid, int x, int y) {
+    public int countNeighbors(Cell[][] grid, int x, int y) {
         int sum = 0;
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
@@ -61,7 +55,10 @@ public class GameCell {
                 }
             }
         }
-        sum = sum-1;
+        if (grid[x][y].getAlive()) {
+            sum = sum - 1;
+        }
         return sum;
+
     }
 }
