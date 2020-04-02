@@ -4,10 +4,12 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -26,19 +28,22 @@ public class GameFX extends Application {
         Scene scene = new Scene(root, 800 ,1000);
 
         javafx.scene.control.Button btn = new Button();
-        btn.setText("100 iterations");
+        btn.setText("150 iterations");
         btn.setOnAction((ActionEvent event) -> {
             Timeline timeline = new Timeline(new KeyFrame(
                     Duration.millis(300),
                     ae -> evolve(gameCell, root)));
-            timeline.setCycleCount(100);
+            timeline.setCycleCount(150);
             timeline.play();
 
         });
 
-        root.getChildren().add(btn);
-        btn.setLayoutX(btn.getWidth() + (scene.getWidth()/2));
+        btn.setPrefWidth(200);
         btn.setLayoutY(900);
+        btn.setLayoutX(300);
+
+        root.getChildren().add(btn);
+
 
         stage.setScene(scene);
         stage.show();
@@ -58,13 +63,15 @@ public class GameFX extends Application {
                 int resolution = 20;
                 int x = i* resolution;
                 int y = j* resolution;
-                javafx.scene.shape.Rectangle rectangle = new Rectangle(x, y, resolution, resolution);
+                javafx.scene.shape.Circle circle = new Circle(x + 1, y + 1, 9);
                 if (grid[i][j].getAlive()) {
-                    rectangle.setFill(Color.BLACK);
+                    circle.setFill(Color.BLACK);
                 } else {
-                    rectangle.setFill(Color.WHITE);
+                    circle.setStroke(Color.WHITE);
+                    circle.setFill(Color.WHITE);
+
                 }
-                root.getChildren().add(rectangle);
+                root.getChildren().add(circle);
             }
             
         }
