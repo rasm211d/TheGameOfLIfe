@@ -35,9 +35,9 @@ public class GameCell {
                 } else {
                     grid[i][j].setLivingNeighbours(countNeighbors(grid, i, j));
                 }
-
             }
         }
+
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid.length; j++) {
                 grid[i][j].update();

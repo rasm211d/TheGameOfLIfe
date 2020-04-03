@@ -1,17 +1,14 @@
 package sample;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Cell {
     private int livingNeighbours;
     private boolean alive;
-    private int iteration = 0;
     private String name;
 
     public Cell() {
         livingNeighbours = -1;
-        iteration = 0;
+
     }
 
     public void update() {
@@ -22,7 +19,6 @@ public class Cell {
         } else {
             alive = false;
         }
-        iteration++;
     }
 
     public void setLivingNeighbours(int livingNeighbours) {

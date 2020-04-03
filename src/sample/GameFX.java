@@ -4,23 +4,20 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.awt.*;
 
 public class GameFX extends Application {
     private Cell[][] grid;
     private GameCell gameCell;
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) /*throws Exception*/ {
         Pane root = new Pane();
         gameCell = new GameCell();
         grid = gameCell.grid;
@@ -31,7 +28,7 @@ public class GameFX extends Application {
         btn.setText("150 iterations");
         btn.setOnAction((ActionEvent event) -> {
             Timeline timeline = new Timeline(new KeyFrame(
-                    Duration.millis(300),
+                    Duration.millis(500),
                     ae -> evolve(gameCell, root)));
             timeline.setCycleCount(150);
             timeline.play();
